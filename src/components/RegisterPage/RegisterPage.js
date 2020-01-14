@@ -41,10 +41,10 @@ class RegisterPage extends Component {
           </h2>
         )}
         <form onSubmit={this.registerUser}>
-          <h1>Register User</h1>
+          <h1>Sign-Up</h1>
           <div>
             <label htmlFor="username">
-              Username:
+              New Username:
               <input
                 type="text"
                 name="username"
@@ -55,7 +55,7 @@ class RegisterPage extends Component {
           </div>
           <div>
             <label htmlFor="password">
-              Password:
+              New Password:
               <input
                 type="password"
                 name="password"
@@ -69,7 +69,7 @@ class RegisterPage extends Component {
               className="register"
               type="submit"
               name="submit"
-              value="Register"
+              value="Sign-Up"
             />
           </div>
         </form>
@@ -79,7 +79,7 @@ class RegisterPage extends Component {
             className="link-button"
             onClick={() => {this.props.dispatch({type: 'SET_TO_LOGIN_MODE'})}}
           >
-            Login
+            Already have an account?
           </button>
         </center>
       </div>

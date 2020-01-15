@@ -1,7 +1,32 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {makeStyles} from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+
+// This sets our card Height and Width
+// const useStyles = makeStyles ({
+//   card: {
+//     maxWidth: 400,
+//   },
+//   media: {
+//     height: 200
+//   },
+// });
+
+// //set classes to useStyles
+// export default function MediaCard() {
+//   const classes = useStyles();
+//   }
 
 class RegisterPage extends Component {
+  
   state = {
     username: '',
     password: '',
@@ -29,8 +54,12 @@ class RegisterPage extends Component {
     });
   }
 
+  
   render() {
+    
     return (
+      // BEGIN Card Render
+      <Paper>
       <div>
         {this.props.errors.registrationMessage && (
           <h2
@@ -83,6 +112,7 @@ class RegisterPage extends Component {
           </button>
         </center>
       </div>
+      </Paper>
     );
   }
 }

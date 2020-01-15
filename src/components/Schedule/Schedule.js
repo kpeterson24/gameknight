@@ -63,62 +63,69 @@ class Schedule extends Component {
         const { classes } = this.props;
 
         return (
-            <Card className = {classes.card}>
-                <CardHeader
-                    avatar = { 
-                        <Avatar alt = {this.props.user.username} src = {this.props.user.profile_image} aria-label= "Host" className = {classes.avatar}> K </Avatar> 
-                    }
-                    title = {this.props.event.title}
-                    subheader = {this.props.event.date}
-                />
-                <CardContent>
-                    <Typography component = 'p'>
-                        {this.props.event.desc}
-                    </Typography>
-                    <Typography component = 'p'>
-                        Location: {this.props.event.location}
-                    </Typography>
-                    <Typography component = 'p'>
-                        Attending:
-                        <AvatarGroup>
-                            <Avatar alt = {this.props.user.username} src = {this.props.user.profile_image}></Avatar>
-                            <Avatar alt = {this.props.user.username} src = {this.props.user.profile_image}></Avatar>
-                            <Avatar alt = {this.props.user.username} src = {this.props.user.profile_image}></Avatar>
-                            <Tooltip title = "Foo • Bar • Baz">
-                                <Avatar>+3</Avatar>
-                            </Tooltip>
-                         </AvatarGroup>
-                    </Typography>
-                    <Typography component = 'p'>
-                        Games: {this.props.total_games.game_total}
-                    </Typography>
-                    <div>
-                        <Typography component = 'p'>Are you Coming?</Typography>
-                        <Checkbox checked = {this.state.checkedA} onChange = {this.handleCheckChange('checkedA')} value = "checkedA" />
-                    </div>
-                </CardContent>
-                <CardActions className = {classes.actions} disableActionSpacing>
-                    <Typography component = 'h4'>See Full Event Details</Typography>
-                    <IconButton
-                    className = {classnames( classes.expand, {
-                        [classes.expandOpen]: this.state.expanded,
-                    })}
-                    onClick = {this.handleExpandClick}
-                    aria-expanded = {this.state.expanded}
-                    aria-label = "Show more"
-                    >
-                    <ExpandMoreIcon />
-                    </IconButton>    
-                </CardActions>
-                <Collapse in = {this.state.expanded} timeout = "auto" unmountOnExit>
+            <div>
+                {this.props.user.map( ( user, i ) => {
+                    return(
+                
+                <Card className = {classes.card}>
+                    <CardHeader
+                        avatar = { 
+                            <Avatar alt = {user.username} src = {user.profile_image} aria-label= "Host" className = {classes.avatar}> K </Avatar> 
+                        }
+                        title = {this.props.event.title}
+                        subheader = {this.props.event.date}
+                    />
                     <CardContent>
-                        <Typography paragraph>Guest List:</Typography>
-                        <Typography component = 'ul'>{this.props.event.guestlist}</Typography>
-
+                        <Typography component = 'p'>
+                            {this.props.event.desc}
+                        </Typography>
+                        <Typography component = 'p'>
+                            Location: {this.props.event.location}
+                        </Typography>
+                        <Typography component = 'p'>
+                            Attending:
+                            <AvatarGroup>
+                                <Avatar alt = {user.username} src = {user.profile_image}></Avatar>
+                                <Avatar alt = {user.username} src = {user.profile_image}></Avatar>
+                                <Avatar alt = {user.username} src = {user.profile_image}></Avatar>
+                                <Tooltip title = "Foo • Bar • Baz">
+                                    <Avatar>+3</Avatar>
+                                </Tooltip>
+                            </AvatarGroup>
+                        </Typography>
+                        <Typography component = 'p'>
+                            Games: {this.props.total_games.game_total}
+                        </Typography>
+                        <div>
+                            <Typography component = 'p'>Are you Coming?</Typography>
+                            <Checkbox checked = {this.state.checkedA} onChange = {this.handleCheckChange('checkedA')} value = "checkedA" />
+                        </div>
                     </CardContent>
-                </Collapse>
+                    <CardActions className = {classes.actions} disableActionSpacing>
+                        <Typography component = 'h4'>See Full Event Details</Typography>
+                        <IconButton
+                        className = {classnames( classes.expand, {
+                            [classes.expandOpen]: this.state.expanded,
+                        })}
+                        onClick = {this.handleExpandClick}
+                        aria-expanded = {this.state.expanded}
+                        aria-label = "Show more"
+                        >
+                        <ExpandMoreIcon />
+                        </IconButton>    
+                    </CardActions>
+                    <Collapse in = {this.state.expanded} timeout = "auto" unmountOnExit>
+                        <CardContent>
+                            <Typography paragraph>Guest List:</Typography>
+                            <Typography component = 'ul'>{this.props.event.guestlist}</Typography>
 
-            </Card>
+                        </CardContent>
+                    </Collapse>
+
+                </Card>
+                    )
+                })}
+            </div>
         )
     }
 }
@@ -127,9 +134,9 @@ Schedule.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-    user: state.user,
-    event: state.event
+const mapStateToProps = data => ({
+    user: data.user,
+    event: data.event,
   });
   
 export default connect(mapStateToProps)(withStyles(styles)(Schedule));

@@ -77,10 +77,13 @@ class LoginPage extends Component {
           <button
             type="button"
             className="link-button"
-            onClick={() => {this.props.dispatch({type: 'SET_TO_REGISTER_MODE'})}}
-          >
-            Register
+            onClick={() => {this.props.dispatch({type: 'SET_TO_REGISTER_MODE'})}}>
+            Create New Account
           </button>
+          <br/>
+          <button type="button" className="link-button" onClick={() => {this.props.dispatch({type: 'SET_TO_REGISTER_MODE'})}}>Forgot Username?</button>
+          <br/>
+          <button type="button" className="link-button" onClick={() => {this.props.dispatch({type: 'SET_TO_REGISTER_MODE'})}}>Forgot Password?</button>
         </center>
       </div>
     );

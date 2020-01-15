@@ -9,16 +9,21 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/styles';
 
 // This sets our card Height and Width
-// const useStyles = makeStyles ({
-//   card: {
-//     maxWidth: 400,
-//   },
-//   media: {
-//     height: 200
-//   },
-// });
+const useStyles = makeStyles (theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(1),
+      width: theme.spacing(16),
+      height: theme.spacing(16),
+    },
+  },
+    
+}));
 
 // //set classes to useStyles
 // export default function MediaCard() {
@@ -59,7 +64,7 @@ class RegisterPage extends Component {
     
     return (
       // BEGIN Card Render
-      <Paper>
+      <Paper elevation = {3}>
       <div>
         {this.props.errors.registrationMessage && (
           <h2
@@ -124,5 +129,5 @@ const mapStateToProps = state => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps)(RegisterPage);
+export default connect(mapStateToProps)(withStyles(useStyles)(RegisterPage));
 

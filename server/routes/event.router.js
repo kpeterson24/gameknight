@@ -6,9 +6,9 @@ const router = express.Router();
  * GET route template
  */
 
-//This route GETs each user's unique information when signed in, is displayed on the UserPage.
+//This route GETs each events unique information when signed in, is displayed on the Schedule.
 router.get('/:id', (req, res) => {
-    let queryText = `SELECT * FROM "user" WHERE id=$1;`;
+    let queryText = `SELECT * FROM "event" WHERE id=$1;`;
     pool.query(queryText).then(result => {
         res.send(result.rows);
     }).catch(error => {

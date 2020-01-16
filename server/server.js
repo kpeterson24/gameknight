@@ -26,7 +26,6 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
-// named /schedule to better match the page name
 app.use('/schedule', eventRouter);
 app.use('/game', gameRouter);
 

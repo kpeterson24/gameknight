@@ -6,8 +6,7 @@ import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
+
 import Typography from '@material-ui/core/Typography';
 
 
@@ -22,6 +21,9 @@ const styles = themes => ({
 
 class Games extends Component {
 
+    componentDidMount() {
+        this.props.dispatch({type: "GET_GAMES"});
+    };
 
     render() {
         const { classes } = this.props;

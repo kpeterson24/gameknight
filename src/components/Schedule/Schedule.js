@@ -27,7 +27,7 @@ const styles = theme => ({
         maxWidth: 345,
     },
     actions: {
-        dosplay: 'flex',
+        display: 'flex',
     },
     expand: {
         transform: 'rotate(0deg)',
@@ -135,7 +135,6 @@ Schedule.propTypes = {
 };
 
 const mapStateToProps = data => ({
-    user: data.user,
     event: data.event,
   });
   

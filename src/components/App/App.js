@@ -13,6 +13,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import UserPage from '../UserPage/UserPage';
 import Schedule from '../Schedule/Schedule';
 import Games from '../Games/Games';
+import AddGame from '../AddGame/AddGame';
 
 import './App.css';
 
@@ -49,6 +50,12 @@ class App extends Component {
               exact
               path="/game"
               component={Games}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/addgame"
+              component={AddGame}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}

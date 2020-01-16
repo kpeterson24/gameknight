@@ -6,7 +6,13 @@ const router = express.Router();
  * GET route template
  */
 router.get('/', (req, res) => {
-    
+    let queryText = `SELECT * FROM "games";`
+    pool.query(queryText).then( result => {
+        res.send(result.rows);
+    }).catch( error => {
+        console.log('error getting games', error);
+        res.sendStatus(500);
+    }); 
 });
 
 /**

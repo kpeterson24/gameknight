@@ -6,8 +6,12 @@ const router = express.Router();
  * GET route template
  */
 router.get('/', (req, res) => {
-    let queryText = `SELECT * FROM "games";`
-    pool.query(queryText).then( result => {
+    const id = [req.user.id]
+    let queryText = `SELECT * FROM "user"
+    JOIN "user_games" ON "user_games"."user_id" = "user"."id"
+    JOIN "games" ON "games"."game_id" = "user_games"."game_id"
+    WHERE "user"."id" = $1;`;
+    pool.query(queryText, id ).then( result => {
         res.send(result.rows);
     }).catch( error => {
         console.log('error getting games', error);

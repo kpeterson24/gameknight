@@ -2,7 +2,7 @@
 
 const games = (state = [], action) => {
     switch (action.type) {
-        case 'SET_DETAILS':
+        case 'SET_GAMES':
             return action.payload;
             default:
                 return state;

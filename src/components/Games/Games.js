@@ -21,33 +21,33 @@ const styles = themes => ({
 
 class Games extends Component {
 
-    componentDidMount() {
-        this.props.dispatch({type: "GET_GAMES"});
-    };
+    // componentDidMount() {
+    //     this.props.dispatch({type: "GET_GAMES" });
+    // };
 
     render() {
         const { classes } = this.props;
 
         return (
             <div>
-                <h1>My Games</h1>
-                {this.props.game.map( ( game, i ) => {
+                {/* {JSON.stringify(this.props)} */}
+                {this.props.games && this.props.games.map( ( game ) => {
                     return(
                         
-                        <Card className = {classes.card}>
-                            <CardHeader title = {this.props.game.title}/>
+                        <Card key={game.game_id} className = {classes.card}>
+                            <CardHeader title = {game.title}/>
                             <CardContent>
                                 <Typography component = 'h2'>Game Description:</Typography>
                                 <Typography component = 'p'>
-                                    {this.props.game.desc}
+                                    {game.desc}
                                 </Typography>
                                 <Typography component = 'h2'>Number of Players:</Typography>
                                 <Typography component = 'p'>
-                                    {this.props.game.players}
+                                    {game.players}
                                 </Typography>
                                 <Typography component = 'h2'>Genre:</Typography>
                                 <Typography component = 'p'>
-                                    {this.props.game.genre}
+                                    {game.genre}
                                 </Typography>
                             </CardContent>
                         </Card>
@@ -58,12 +58,12 @@ class Games extends Component {
     }
 }
 
-Schedule.propTypes = {
+Games.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = data => ({
-    user: data.user,
+const mapStateToProps = (data) => ({
+    games: data.games,
   });
 
   export default connect(mapStateToProps)(withStyles(styles)(Games));

@@ -20,10 +20,18 @@ router.get('/', (req, res) => {
 });
 
 /**
- * POST route template
+ * delete route
  */
-router.post('/', (req, res) => {
-
+router.delete('/:id', (req, res) => {
+    console.log('In DELETE game');   
+    const game = req.params;
+    let queryString = `DELETE FROM "games" WHERE game_id=$1;`
+    pool.query( queryString, [game.id]).then( (result) => {
+        res.sendStatus(200);
+    }).catch( (error) => {
+        console.log('error deleting game', error);
+        res.sendStatus(500); 
+    });
 });
 
 module.exports = router;

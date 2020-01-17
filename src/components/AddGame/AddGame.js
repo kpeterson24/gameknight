@@ -49,62 +49,85 @@ const styles = theme => ({
 class AddGame extends Component {
 
     state = {
-        textField: '',
+        title:'',
+        genre:'',
+        description:'',
+        players:''
       };
     
-      handleChange = name => event => {
+      handleChange = (event, propName) => {
         this.setState({
-          [name]: event.target.value,
+          [propName]: event.target.value,
         });
       };
+    
+      addNewGame = (event, id) => {
+        this.props.dispatch({ type: 'ADD_GAME', payload: this.state });    
+        // this.setState({
+        //         title:'',
+        //         genre:'',
+        //         description:'',
+        //         players:''
+        // })
+    }
 
     render() {
-        const { classes, children, className, ...other } = this.props;
+        const { classes, children, className, handleSubmit } = this.props;
+      
 
         return (
-            <form className = {classes.container} noValidate autoComplete = "off">
-                <TextField
-                    required
-                    id="outlined-required"
-                    label="Game Title"
-                    placeholder="Risk, Jumanji?"
-                    className={classes.textField}
-                    margin="normal"
-                    variant="outlined"
-                />
-                <TextField
-                    required
-                    id="outlined-required"
-                    label="Genre"
-                    placeholder="Strategy, Board Game?"
-                    className={classes.textField}
-                    margin="normal"
-                    variant="outlined"
-                />
-                <TextField
-                    required
-                    id="outlined-required"
-                    label="Description"
-                    placeholder="Briefly, Please"
-                    className={classes.textField}
-                    margin="normal"
-                    variant="outlined"
-                />
-                <TextField
-                    required
-                    id="outlined-required"
-                    label="Number of Players"
-                    placeholder="Min - Max"
-                    className={classes.textField}
-                    margin="normal"
-                    variant="outlined"
-                />
+            
+            <form className = {classes.container} noValidate autoComplete = "off" onSubmit={this.addNewGame}>
                 <div>
-                <Button className={classNames(classes.root, className)} {...other}>
-                    {children || 'Add to List'}
-                <SaveIcon className={classNames(classes.rightIcon)} />
-                </Button>
+                {/* {JSON.stringify(this.state.props)} */}
+                    <TextField
+                        required
+                        label="Game Title"
+                        placeholder="Risk, Jumanji?"
+                        className={classes.textField}
+                        margin="normal"
+                        variant="outlined"
+                        value={this.state.title}
+                        onChange = { (event) => this.handleChange( event, 'title' ) }
+                    />
+                    <TextField
+                        required
+                        label="Genre"
+                        placeholder="Strategy, Board Game?"
+                        className={classes.textField}
+                        margin="normal"
+                        variant="outlined"
+                        value={this.state.genre}
+                        onChange = { (event) => this.handleChange( event, 'genre' ) }
+                    />
+                    <TextField
+                        required
+                        label="Description"
+                        placeholder="Briefly, Please"
+                        className={classes.textField}
+                        margin="normal"
+                        variant="outlined"
+                        value={this.state.description}
+                        onChange = { (event) => this.handleChange( event, 'description' ) }
+                    />
+                    <TextField
+                        required
+                        label="Number of Players"
+                        placeholder="Min - Max"
+                        className={classes.textField}
+                        margin="normal"
+                        variant="outlined"
+                        value={this.state.players}
+                        onChange = { (event) => this.handleChange( event, 'players' ) }
+                    />
+                    
+                    <Button 
+                        className={classNames(classes.root, className)} type="submit" >
+                        {children || 'Add to List'}
+                    <SaveIcon className={classNames(classes.rightIcon)} />
+                    </Button>
                 </div>
+                
             </form>
 
         )

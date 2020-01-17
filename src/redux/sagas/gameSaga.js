@@ -10,8 +10,18 @@ function* getGamesSaga() {
     }
 }
 
+function* deleteGameSaga (action) {
+    try{
+        yield axios.delete(`/game/${action.payload}`);
+        yield put({ type: 'GET_GAMES' });
+    }catch(error){
+        console.log('error deleting game in saga', error);    
+    }
+}
+
 function* gameSaga() {
     yield takeLatest('GET_GAMES', getGamesSaga);
+    yield takeLatest('DELETE_GAME', deleteGameSaga);
   }
 
 export default gameSaga;

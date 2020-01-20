@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import BotNav from '../Nav/BotNav';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
@@ -84,7 +85,7 @@ class AddEvent extends Component {
       
 
         return (
-            
+            <div>
             <form className = {classes.container} noValidate autoComplete = "off" onSubmit={this.addNewGame}>
                 <div>
                 {/* {JSON.stringify(this.state.props)} */}
@@ -102,7 +103,6 @@ class AddEvent extends Component {
                         required
                         label="Event Date"
                         type="datetime-local"
-                        // defaultValue={this.state.date}
                         className={classes.textField}
                         margin="normal"
                         variant="outlined"
@@ -153,9 +153,11 @@ class AddEvent extends Component {
                     <SaveIcon className={classNames(classes.rightIcon)} />
                     </Button>
                 </div>
-                
             </form>
 
+            <BotNav />
+            </div>
+            
         )
     }
 }

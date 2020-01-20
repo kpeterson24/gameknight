@@ -63,12 +63,12 @@ class AddGame extends Component {
     
       addNewGame = (event, id) => {
         this.props.dispatch({ type: 'ADD_GAME', payload: this.state });    
-        // this.setState({
-        //         title:'',
-        //         genre:'',
-        //         description:'',
-        //         players:''
-        // })
+        this.setState({
+                title:'',
+                genre:'',
+                description:'',
+                players:''
+        });
     }
 
     render() {

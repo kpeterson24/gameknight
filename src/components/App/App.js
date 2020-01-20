@@ -14,6 +14,7 @@ import UserPage from '../UserPage/UserPage';
 import Schedule from '../Schedule/Schedule';
 import Games from '../Games/Games';
 import AddGame from '../AddGame/AddGame';
+import AddEvent from '../AddEvent/AddEvent';
 
 import './App.css';
 
@@ -57,13 +58,15 @@ class App extends Component {
               path="/addgame"
               component={AddGame}
             />
+
+            <ProtectedRoute
+            exactpath="/addevent"
+            component={AddEvent}
+            />
+
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
-            {/* <ProtectedRoute
-              exact
-              path="/info"
-              component={InfoPage}
-            /> */}
+            
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>

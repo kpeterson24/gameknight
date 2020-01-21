@@ -9,12 +9,11 @@ body {
 }
 
 form {
-    background-color: #dbd5d5;
-    width: 30%;
-    height: 250px;
+    width: 100%;
+    height: relative;
     margin: 20px auto;
     padding: 25px;
-    border-radius: 2px;
+    border-radius: 10px;
 }
 
 input {

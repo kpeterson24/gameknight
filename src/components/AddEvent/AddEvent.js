@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
-import Grid from '@material-ui/core/Grid';
+// import Grid from '@material-ui/core/Grid';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { InputAdornment } from '@material-ui/core';
 
@@ -81,7 +81,7 @@ class AddEvent extends Component {
     }
 
     render() {
-        const { classes, children, className, handleSubmit } = this.props;
+        const { classes, children, className, } = this.props;
       
 
         return (

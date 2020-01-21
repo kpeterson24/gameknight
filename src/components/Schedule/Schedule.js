@@ -15,7 +15,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
 
@@ -88,7 +87,7 @@ class Schedule extends Component {
                                 <Avatar alt = {user.username} src = {user.profile_image}></Avatar>
                                 <Avatar alt = {user.username} src = {user.profile_image}></Avatar>
                                 <Avatar alt = {user.username} src = {user.profile_image}></Avatar>
-                                <Tooltip title = "Foo • Bar • Baz">
+                                <Tooltip title = "Guests">
                                     <Avatar>+3</Avatar>
                                 </Tooltip>
                             </AvatarGroup>

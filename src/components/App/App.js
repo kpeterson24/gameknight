@@ -7,7 +7,8 @@ import {
 } from 'react-router-dom';
 
 import {connect} from 'react-redux';
-import Nav from '../Nav/Nav';
+import TopNav from '../Nav/TopNav';
+import BotNav from'../Nav/BotNav';
 import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import UserPage from '../UserPage/UserPage';
@@ -27,13 +28,13 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Nav />
+          <TopNav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
             {/* Visiting localhost:3000/schedule will show the about page.
             This is a route anyone can see, no login necessary */}
-            <Route
+            <ProtectedRoute
               exact path="/schedule"
               component={Schedule}
             />
@@ -69,6 +70,7 @@ class App extends Component {
             
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
+            <BotNav />
           </Switch>
           <Footer />
         </div>

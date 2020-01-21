@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -37,7 +37,7 @@ class BotNav extends Component {
                 value={ value }
                 onChange={ this.handleChange }
                 showLabels
-                classNamne={ classes.root }
+                className={ classes.root }
             >
                 <Link to="/addgame">
                     <BottomNavigationAction label="Add Game" icon={<PlaylistAddIcon/>} />

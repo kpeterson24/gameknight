@@ -37,7 +37,7 @@ class BotNav extends Component {
                 value={ value }
                 onChange={ this.handleChange }
                 showLabels
-                classNamne={ classes.root }
+                className={ classes.root }
             >
                 <Link to="/addgame">
                     <BottomNavigationAction label="Add Game" icon={<PlaylistAddIcon/>} />

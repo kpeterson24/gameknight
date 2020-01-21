@@ -87,7 +87,7 @@ class Schedule extends Component {
                                 <Avatar alt = {user.username} src = {user.profile_image}></Avatar>
                                 <Avatar alt = {user.username} src = {user.profile_image}></Avatar>
                                 <Avatar alt = {user.username} src = {user.profile_image}></Avatar>
-                                <Tooltip title = "Foo • Bar • Baz">
+                                <Tooltip title = "Guests">
                                     <Avatar>+3</Avatar>
                                 </Tooltip>
                             </AvatarGroup>

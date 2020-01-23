@@ -15,10 +15,16 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
         const host= req.user;  
         await client.query('BEGIN')
         const queryString = `INSERT INTO "event_detail" ("title", "date", "location", "desc", "host_id")
-            VALUES ($1, $2, $3, $4, $5);`
-        const result = await client.query(queryString, [event.title, event.date, event.location, event.description, host.id])
-        console.log('event added')
-        res.sendStatus(201) 
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING "event_id";`
+        const result = await client.query(queryString, [event.title, event.date, event.location, event.description, host.id]);
+        const queryString2 = `INSERT INTO "event_guests"("guest_id", "event_id" )
+        VALUES($1, $2);`;
+            for (let i=0; i < req.body.guests.length; i++) {
+                console.log('this is guests', req.body.guests[i]);
+                await client.query(queryString2, [req.body.guests[i], result.rows[0].event_id])
+            }
+            console.log('event added', result.rows[0].event_id)
         await client.query('COMMIT')
     } catch (error) {
         await client.query('ROLLBACK')
@@ -27,16 +33,6 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     } finally {
         client.release()
     }
-    // let queryString = `INSERT INTO "event_detail" ("title", "date", "location", "desc", "host_id")
-    // VALUES ($1, $2, $3, $4, $5);`
-    // pool.query( queryString, [event.title, event.date, event.location, event.description, host.id] ).then((result) => {
-    //     console.log('event added');
-    //     res.sendStatus(201)
-    
-    // }).catch( (error) =>{
-    //     console.log('error posting new event', error);
-    //     res.sendStatus(500);
-    // })
 });
 
 

@@ -58,12 +58,19 @@ class Schedule extends Component {
         this.setState( state => ({ expanded: !state.expanded }));
     };
 
+    componentDidMount() {
+        this.props.dispatch({type: 'GET_SCHEDULE'});
+        this.props.dispatch({type: 'GET_USERS'});
+    };
+  
+
     render() {
         const { classes } = this.props;
 
         return (
             <div>
-                {this.props.user.map( ( user, i ) => {
+                {JSON.stringify(this.props)}
+                {this.props.users.map( ( user, i ) => {
                     return(
                 
                 <Card className = {classes.card}>
@@ -93,7 +100,7 @@ class Schedule extends Component {
                             </AvatarGroup>
                         </Typography>
                         <Typography component = 'p'>
-                            Games: {this.props.total_games.game_total}
+                            Games: {this.props.games.game_id}
                         </Typography>
                         <div>
                             <Typography component = 'p'>Are you Coming?</Typography>
@@ -133,8 +140,10 @@ Schedule.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = data => ({
-    event: data.event,
-  });
+const putReduxStateOnProps = ( reduxStore ) => ({
+    users: reduxStore.allUsers,
+    games: reduxStore.games,
+    event: reduxStore.events
+})
   
-export default connect(mapStateToProps)(withStyles(styles)(Schedule));
+export default connect(putReduxStateOnProps)(withStyles(styles)(Schedule));

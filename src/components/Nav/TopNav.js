@@ -24,7 +24,8 @@ const styles = {
         flexGrow: 1
     },
     container: {
-        width: '100%'
+        width: '100%',
+        position: "sticky"
         
     },
     pageTitle: {

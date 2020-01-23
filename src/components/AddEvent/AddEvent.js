@@ -226,7 +226,7 @@ class AddEvent extends Component {
                         value={this.state.description}
                         onChange = { (event) => this.handleChange( event, 'description' ) }
                     />
-                    <TextField 
+                    {/* <TextField 
                     className={classes.textField} 
                     label="Invite by Email"
                     placeholder="example@gmail.com"
@@ -240,7 +240,7 @@ class AddEvent extends Component {
                             </InputAdornment>
                             ),
                         }}
-                    />
+                    /> */}
                     <FormControl className={classes.formControl}>
                         <InputLabel htmlFor="select-multiple-names">Add Guests</InputLabel>
                         <Select

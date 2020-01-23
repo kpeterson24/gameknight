@@ -23,6 +23,14 @@ const styles = {
     grow: {
         flexGrow: 1
     },
+    container: {
+        width: '100%'
+        
+    },
+    pageTitle: {
+        position: 'auto',
+        flexGrow: 1
+    }
 };
 
 const popStyles = theme => ({
@@ -53,7 +61,7 @@ const popStyles = theme => ({
     
        return(
             <div className = {classes.root}>
-                <AppBar >
+                <AppBar className = {classes.container}>
                     <Toolbar>
                             {/* Show the link to the info page and the logout button if the user is logged in */}
                             {props.user.id && (
@@ -68,7 +76,7 @@ const popStyles = theme => ({
                           </IconButton>
 
                             )}
-                        <Typography variant="h6"  className={classes.grow}>
+                        <Typography variant="h6" className={classes.pageTitle}>
                             Add Event
                         </Typography>
                                 

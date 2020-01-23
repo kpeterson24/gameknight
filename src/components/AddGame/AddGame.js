@@ -15,16 +15,20 @@ const styles = theme => ({
         border: 0,
         color: 'white',
         height: 50,
-        padding: '0 30px',
+        padding: '0 50px',
         boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        margin: theme.spacing.unit,
       },
 
     container: {
       display: 'flex',
       flexWrap: 'wrap',
-      height: '475px',
+      height: 'relative',
+      width: '400px',
+      paddingTop: '50px'
     },
     textField: {
+      width: '400px',
       marginLeft: theme.spacing.unit,
       marginRight: theme.spacing.unit,
     },
@@ -32,7 +36,7 @@ const styles = theme => ({
       marginTop: 16,
     },
     menu: {
-      width: 200,
+      width: 300,
     },
     button: {
         margin: theme.spacing.unit,
@@ -43,6 +47,9 @@ const styles = theme => ({
       iconSmall: {
         fontSize: 50,
       },
+      margin: {
+        margin: theme.spacing.unit,
+    }
   });
 
   

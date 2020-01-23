@@ -1,27 +1,38 @@
 const express = require('express');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
 const router = express.Router();
 
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
-    console.log('POST Add New Event', req.body);
-    const event = req.body;
-    let queryString = `INSERT INTO "event_detail" ("title", "genre", "players", "desc")
-    VALUES ($1, $2, $3, $4) 
-    RETURNING "games"."game_id";`
-    let queryString2 = `INSERT INTO "user_games"("game_id", "user_id")
-    VALUES($1, $2);`
-    pool.query( queryString, [game.title, game.genre, game.players, game.description] ).then((result) => {
-        pool.query( queryString2, [result.rows[0].game_id, req.user.id] ).then((result) =>{
-            console.log('game added');
-            res.sendStatus(201)
-        })  
-    }).catch( (error) =>{
-        console.log('error posting new game', error);
-        res.sendStatus(500);
-    })
+router.post('/', rejectUnauthenticated, async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+        await client.query('BEGIN')
+        let event = req.body;
+        let host= req.user;
+        const queryString = `INSERT INTO "event_detail" ("title", "date", "location", "desc", "host_id", "guest_id")
+        VALUES ($1, $2, $3, $4, $5, $6);`;
+        let result = await client.query( queryString, [event.title, event.date, event.location, event.description, host.id, event.guest_id] )
+        console.log('logging', result);
+        // const guestId = result.rows[0].guest_id;
+        // const eventId = result.rows[0].event_id;
+        // for (let i = 0; i < result.rows.length; i++)
+        // let queryString2 = `INSERT INTO "event_guests"("guest_id", "event_id")
+        // VALUES($1, $2);`;
+        // await client.query(queryString2, [guestId, eventId])
+        await client.query('COMMIT')
+        res.sendStatus(201);
+        }
+
+        catch(error) {
+            await client.query('ROLLBACK')
+            console.log('logging', error);
+            res.sendStatus(500)
+        }
+          
 });
 
 module.exports = router;

@@ -20,42 +20,50 @@ import Input from '@material-ui/core/Input';
 const styles = theme => ({
     root: {
         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-        borderRadius: 3,
+        borderRadius: 5,
         border: 0,
         color: 'white',
-        height: 48,
-        padding: '0 30px',
+        height: 50,
+        padding: '0 50px',
         boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        margin: theme.spacing.unit,
       },
       
       multipleRoot: {
+        margin: theme.spacing.unit,
+        width: '400px',  
         display: 'flex',
         flexWrap: 'wrap',
       },
       formControl: {
         margin: theme.spacing.unit,
-        minWidth: 120,
-        maxWidth: 300,
-      },
-      chips: {
+        width: 400,
+        float: 'left',
+        flexWrap: 'wrap',
         display: 'flex',
+        
+      },
+
+      chips: {
+        display: '100%',
         flexWrap: 'wrap',
       },
       chip: {
-        margin: theme.spacing.unit / 4,
+        margin: theme.spacing.unit / 5,
       },
       noLabel: {
-        marginTop: theme.spacing.unit * 3,
+        marginTop: theme.spacing.unit,
       },
 
      container: {
       display: 'flex',
       flexWrap: 'wrap',
       height: 'relative',
-      width: '100%',
+      width: '400px',
+      paddingTop: '50px'
     },
     textField: {
-      width: '75%',
+      width: '400px',
       marginLeft: theme.spacing.unit,
       marginRight: theme.spacing.unit,
     },
@@ -63,7 +71,7 @@ const styles = theme => ({
       marginTop: 16,
     },
     menu: {
-      width: 200,
+      width: 300,
     },
     button: {
         margin: theme.spacing.unit,
@@ -79,8 +87,8 @@ const styles = theme => ({
       }
   });
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
+const ITEM_HEIGHT = 50;
+const ITEM_PADDING_TOP = 10;
 const MenuProps = {
     PaperProps: {
         style: {
@@ -90,21 +98,19 @@ const MenuProps = {
     },
 };
 
-const names = [
-    'Korey',
-    'Jamie',
-    'David',
-    'Elmi', 
+const guests = [
+    
 ];
 
-function getStyles(name, that) {
+function getStyles(guest, that) {
     const weight = that.props.theme.typography;
     return {
         
         fontWeight:
-            that.state.name.indexOf(name) === -1 ? weight.fontWeightRegular : weight.fontWeightMedium,
+            that.state.guests.indexOf(guest) === -1 ? weight.fontWeightRegular : weight.fontWeightMedium,
     };
 }
+
 
   
 class AddEvent extends Component {
@@ -114,17 +120,26 @@ class AddEvent extends Component {
         location:'',
         description:'',
         date: '',
-        name: [],
+        guests: [],
       };
+
+      addNewEvent = (event, id) => {
+        this.props.dispatch({ type: 'ADD_EVENT', payload: this.state });    
+        this.setState({
+            
+        });
+    }
     
       handleChange = (event, propName) => {
         this.setState({
           [propName]: event.target.value,
         });
+        console.log(event.target.value);
+        
       };
 
-      handleChange = event => {
-          this.setState({ name: event.target.value });
+      handleGuestChange = event => {
+          this.setState({ guests: event.target.value });
       };
 
       handleChangeMultiple = event => {
@@ -136,10 +151,13 @@ class AddEvent extends Component {
           }
         }
         this.setState({
-          name: value,
+          guests: value,
         });
       };
 
+      componentDidMount() {
+          this.props.dispatch({type: 'GET_USERS'});
+      };
     
     
       addNewEvent = (event, id) => {
@@ -148,19 +166,24 @@ class AddEvent extends Component {
             title:'',
             location:'',
             description:'',
-            date: ''
+            date: '',
+            guests:[],
         });
     }
 
     render() {
         const { classes, children, className, } = this.props;
+        console.log('hello');
+        
       
 
         return (
             <div>
+                {/* {JSON.stringify(this.props.users)} */}
             <form className = {classes.container} noValidate autoComplete = "off" onSubmit={this.addNewEvent}>
                 <div>
-                {/* {JSON.stringify(this.state.props)} */}
+                
+                
                     <TextField
                         required
                         label="Event Title"
@@ -218,28 +241,12 @@ class AddEvent extends Component {
                             ),
                         }}
                     />
-                    <FormControl className={classes.multipleRoot}>
-                        <InputLabel htmlFor="select-multiple">Name</InputLabel>
-                        <Select
-                        multiple
-                        value={this.state.name} //**** this will change to this.props.user.username **** //
-                        onChange={this.handleChange}
-                        input={<Input id="select-multiple" />}
-                        MenuProps={MenuProps}
-                        >
-                        {names.map(name => (
-                            <MenuItem key={name} value={name} style={getStyles(name, this)}>
-                                {name}
-                            </MenuItem>
-                        ))}    
-                        </Select>
-                    </FormControl>
                     <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="select-multiple-names">Selected</InputLabel>
+                        <InputLabel htmlFor="select-multiple-names">Add Guests</InputLabel>
                         <Select
                             multiple
-                            value={this.state.name}
-                            onChange={this.handleChange}
+                            value={this.state.guests}
+                            onChange={this.handleGuestChange}
                             input={<Input id="select-multiple-names" />}
                             renderValue={selected => (
                             <div className={classes.chips}>
@@ -250,18 +257,24 @@ class AddEvent extends Component {
                             )}
                             MenuProps={MenuProps}
                         >
-                            {names.map(name => (
-                            <MenuItem key={name} value={name} style={getStyles(name, this)}>
-                                {name}
+                            {this.props.users.map(guest => (
+                            <MenuItem key={guest.id} value={guest.id} style={getStyles(guest, this)}>
+                                {guest.username}
                             </MenuItem>
                             ))}
                         </Select>
                         </FormControl>
+                    <br></br>
+                    <div>    
                     <Button 
-                        className={classNames(classes.root, className)} type="submit" >
+                        className={classNames(classes.root)} 
+                        type="submit"
+                        padding="50px"
+                        >
                         {children || 'Add to Schedule'}
                     <SaveIcon className={classNames(classes.rightIcon)} />
                     </Button>
+                    </div>
                 </div>
             </form>
 
@@ -277,5 +290,8 @@ AddEvent.propTypes = {
     classes: PropTypes.object.isRequired,
     className: PropTypes.string,
 };
+const putReduxStateOnProps = ( reduxStore ) => ({
+    users: reduxStore.allUsers
+})
 
-  export default connect()(withStyles(styles, { withTheme: true} )(AddEvent));
+  export default connect(putReduxStateOnProps)(withStyles(styles, { withTheme: true} )(AddEvent));

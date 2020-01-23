@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
     }).catch( (error) =>{
         console.log('error posting new game', error);
         res.sendStatus(500);
-    })
+    });
 });
 
 module.exports = router;

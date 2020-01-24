@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 /**
- * GET route template
+ * GET route
  */
 router.get('/',  (req, res) => {
     // const id = [req.user.id]
@@ -31,6 +31,26 @@ router.delete('/:id', (req, res) => {
         console.log('error deleting game', error);
         res.sendStatus(500); 
     });
+});
+
+/**
+ * edit route
+ */
+router.put('/:id', (req, res) => {
+    console.log('in EDIT game');
+    const game = req.body;
+    const id = req.params.id;
+    console.log(game, id);
+    
+    const queryString = `UPDATE "games"
+    SET "title" = $1, "genre" = $2, "players" = $3, "desc" = $4
+    WHERE game_id = $5;`;
+    pool.query(queryString, [game.title, game.genre, game.players, game.description, id]).then((result) => {
+        res.sendStatus(200);
+    }).catch((error) => {
+        console.log('error updating game', error);
+        res.sendStatus(500);   
+    });  
 });
 
 module.exports = router;

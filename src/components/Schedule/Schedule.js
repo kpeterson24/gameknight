@@ -71,7 +71,7 @@ class Schedule extends Component {
         return (
             
             <div>
-                {JSON.stringify(this.props)}
+                {/* {JSON.stringify(this.props)} */}
                 
                 
                 {this.props.event.map( ( event, i ) => {
@@ -108,7 +108,7 @@ class Schedule extends Component {
                             Games: {event.game_id}
                         </Typography>
                         <div>
-                            <Typography component = 'p'>Are you Coming?</Typography>
+                            <Typography  component = 'p'>Are you Coming?</Typography>
                             <Checkbox checked = {this.state.checkedA} onChange = {this.handleCheckChange('checkedA')} value = "checkedA" />
                         </div>
                     </CardContent>

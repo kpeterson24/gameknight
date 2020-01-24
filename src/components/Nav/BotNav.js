@@ -13,7 +13,7 @@ import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
 
 const styles = {
     root: {
-        width:'flex',
+        width: 'absolute',
     },
 };
 
@@ -39,21 +39,11 @@ class BotNav extends Component {
                 showLabels
                 className={ classes.root }
             >
-                <Link to="/addgame">
-                    <BottomNavigationAction label="Add Game" icon={<PlaylistAddIcon/>} />
-                </Link>
-                <Link to="/game">
-                    <BottomNavigationAction label="My Games" icon={<CasinoIcon/>} />
-                </Link>
-                <Link to="/api/user">
-                    <BottomNavigationAction label="Profile" icon={<AccountCircleIcon/>} />
-                </Link>   
-                <Link to="schedule">
-                    <BottomNavigationAction label="My Events" icon={<EventIcon/>} />
-                </Link>
-                <Link to="addevent">
-                    <BottomNavigationAction label="Add Event" icon={<LibraryAddIcon/>} />
-                </Link>
+                <BottomNavigationAction component={Link} to="/addgame" label="Add Game" icon={<PlaylistAddIcon/>}  />
+                <BottomNavigationAction component={Link} to="/game" label="My Games" icon={<CasinoIcon/>} />
+                <BottomNavigationAction component={Link} to="/api/user" label="Profile" icon={<AccountCircleIcon/>} />
+                <BottomNavigationAction component={Link} to="schedule" label="My Events" icon={<EventIcon/>} />
+                <BottomNavigationAction component={Link} to="addevent" label="Add Event" icon={<LibraryAddIcon/>} />  
             </BottomNavigation>
         )
     }

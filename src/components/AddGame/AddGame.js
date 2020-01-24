@@ -6,6 +6,8 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
+import BotNav from '../Nav/BotNav';
+
 
 // Material Ui styles brought in for the text fields.
 const styles = theme => ({
@@ -134,9 +136,9 @@ class AddGame extends Component {
                     <SaveIcon className={classNames(classes.rightIcon)} />
                     </Button>
                 </div>
-                
+                <BotNav/>   
             </form>
-
+            
         )
     }
 }

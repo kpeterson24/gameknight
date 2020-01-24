@@ -8,6 +8,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import BotNav from '../Nav/BotNav';
 
 
 const styles = themes => ({
@@ -29,6 +30,10 @@ class Games extends Component {
         });
     }
 
+    // componentDidMount() {
+    //     this.props.dispatch({type: 'GET_GAMES'});
+    // };
+
     
 
     render() {
@@ -36,11 +41,11 @@ class Games extends Component {
 
         return (
             <div>
-                {/* {JSON.stringify(this.props)} */}
-                {this.props.games && this.props.games.map( ( game ) => {
+                {JSON.stringify(this.props.games)}
+                {this.props.games.map( ( game, i ) => {
                     return(
                         
-                        <Card key={game.game_id} className = {classes.card}>
+                        <Card key={i} className = {classes.card}>
                             <CardHeader title = {game.title}/>
                             <CardContent>
                                 <Typography component = 'h2'>Game Description:</Typography>
@@ -63,6 +68,7 @@ class Games extends Component {
                         </Card>
                     )
                 })}
+                <BotNav/>
             </div>
         )
     }

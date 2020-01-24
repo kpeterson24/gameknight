@@ -2,11 +2,13 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 function* getGamesSaga() {
+    console.log('dfghgfd');
     try {
         const response = yield axios.get('/game');
+        console.log('CLIENT SIDE WOOP', response.data);
         yield put({ type: 'SET_GAMES', payload: response.data })
     } catch( error ) {
-        console.log(error);
+        console.log('----------->', error);
     }
 }
 

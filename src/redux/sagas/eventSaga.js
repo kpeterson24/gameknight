@@ -5,6 +5,7 @@ function* getScheduleSaga() {
     try {
         const response = yield axios.get('/schedule');
         yield put({ type: 'SET_SCHEDULE', payload: response.data })
+        // yield put({ type: 'GET_USERS' })
     } catch( error ) {
         console.log(error);
     }

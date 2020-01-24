@@ -20,9 +20,9 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
         const result = await client.query(queryString, [event.title, event.date, event.location, event.description, host.id]);
         const queryString2 = `INSERT INTO "event_guests"("guest_id", "event_id" )
         VALUES($1, $2);`;
-            for (let i=0; i < req.body.guests.length; i++) {
-                console.log('this is guests', req.body.guests[i]);
-                await client.query(queryString2, [req.body.guests[i], result.rows[0].event_id])
+            for (let i=0; i < event.guests.length; i++) {
+                console.log('this is guests', event.guests[i]);
+                await client.query(queryString2, [event.guests[i], result.rows[0].event_id])
             }
             console.log('event added', result.rows[0].event_id)
         await client.query('COMMIT')

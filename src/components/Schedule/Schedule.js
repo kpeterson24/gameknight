@@ -10,7 +10,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/core/Avatar';
-
+import BotNav from '../Nav/BotNav';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
@@ -59,48 +59,53 @@ class Schedule extends Component {
     };
 
     componentDidMount() {
-        this.props.dispatch({type: 'GET_SCHEDULE'});
         this.props.dispatch({type: 'GET_USERS'});
+        this.props.dispatch({type: 'GET_SCHEDULE'});
+        
     };
   
 
     render() {
         const { classes } = this.props;
-
+        console.log(this.props);
         return (
+            
             <div>
                 {JSON.stringify(this.props)}
-                {this.props.users.map( ( user, i ) => {
+                
+                
+                {this.props.event.map( ( event, i ) => {
+                    
                     return(
                 
-                <Card className = {classes.card}>
+                <Card className = {classes.card} key={i}>
                     <CardHeader
                         avatar = { 
-                            <Avatar alt = {user.username} src = {user.profile_image} aria-label= "Host" className = {classes.avatar}> K </Avatar> 
+                            <Avatar alt = {event.username}  aria-label= "Host" className = {classes.avatar}> K </Avatar> 
                         }
-                        title = {this.props.event.title}
-                        subheader = {this.props.event.date}
+                        title = {event.title}
+                        subheader = {event.date}
                     />
                     <CardContent>
-                        <Typography component = 'p'>
-                            {this.props.event.desc}
+                        <Typography component = 'h1'>
+                           {event.desc}
                         </Typography>
                         <Typography component = 'p'>
-                            Location: {this.props.event.location}
+                            Location: {event.location}
                         </Typography>
                         <Typography component = 'p'>
                             Attending:
                             <AvatarGroup>
-                                <Avatar alt = {user.username} src = {user.profile_image}></Avatar>
-                                <Avatar alt = {user.username} src = {user.profile_image}></Avatar>
-                                <Avatar alt = {user.username} src = {user.profile_image}></Avatar>
+                                <Avatar alt = {event.username} src = {event.profile_image}></Avatar>
+                                <Avatar alt = {event.username} src = {event.profile_image}></Avatar>
+                                <Avatar alt = {event.username} src = {event.profile_image}></Avatar>
                                 <Tooltip title = "Guests">
-                                    <Avatar>+3</Avatar>
+                                    <Avatar>=3</Avatar>
                                 </Tooltip>
                             </AvatarGroup>
                         </Typography>
                         <Typography component = 'p'>
-                            Games: {this.props.games.game_id}
+                            Games: {event.game_id}
                         </Typography>
                         <div>
                             <Typography component = 'p'>Are you Coming?</Typography>
@@ -131,6 +136,7 @@ class Schedule extends Component {
                 </Card>
                     )
                 })}
+                <BotNav />
             </div>
         )
     }

@@ -65,6 +65,7 @@ class RegisterPage extends Component {
     return (
       // BEGIN Card Render
       <Paper elevation = {3}>
+        <center>
       <div>
         {this.props.errors.registrationMessage && (
           <h2
@@ -117,6 +118,7 @@ class RegisterPage extends Component {
           </button>
         </center>
       </div>
+      </center>
       </Paper>
     );
   }

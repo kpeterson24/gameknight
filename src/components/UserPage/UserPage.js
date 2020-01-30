@@ -10,11 +10,13 @@ class UserPage extends Component {
 
   render() {
     return (
+      <center>
       <div>
       <h1 id="welcome"> Prepare Yourself, { this.props.user.username }!</h1>
       
       <BotNav />
       </div>
+      </center>
     )
   }
 

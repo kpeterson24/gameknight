@@ -1,11 +1,12 @@
 const express = require('express');
 const pool = require('../modules/pool');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const router = express.Router();
 
 /**
  * GET route
  */
-router.get('/',  (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     // const id = [req.user.id]
     let queryText = `SELECT * FROM "user"
     JOIN "user_games" ON "user_games"."user_id" = "user"."id"
@@ -21,7 +22,7 @@ router.get('/',  (req, res) => {
 /**
  * delete route
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
     console.log('In DELETE game');   
     const game = req.params;
     let queryString = `DELETE FROM "games" WHERE game_id=$1;`
@@ -36,7 +37,7 @@ router.delete('/:id', (req, res) => {
 /**
  * edit route
  */
-router.put('/:id', (req, res) => {
+router.put('/:id', rejectUnauthenticated, (req, res) => {
     console.log('in EDIT game');
     const game = req.body;
     const id = req.params.id;

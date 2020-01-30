@@ -18,34 +18,32 @@ import Input from '@material-ui/core/Input';
 // Material Ui styles brought in for the text fields.
 const styles = theme => ({
     root: {
-        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-        borderRadius: 5,
-        border: 0,
-        color: 'white',
-        height: 50,
-        padding: '0 50px',
-        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-        margin: theme.spacing.unit,
+      background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+      borderRadius: 3,
+      border: 0,
+      color: 'white',
+      height: 50,
+      padding: '0 50px',
+      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
       },
       
       multipleRoot: {
         margin: theme.spacing.unit,
-        width: '400px',  
+        width: '360',  
         display: 'flex',
         flexWrap: 'wrap',
       },
       formControl: {
-        margin: theme.spacing.unit,
-        width: 400,
-        float: 'left',
-        flexWrap: 'wrap',
         display: 'flex',
-        
+        flexWrap: 'wrap',
+        height: 'relative',
+        width: '360px',
       },
 
       chips: {
         display: '100%',
         flexWrap: 'wrap',
+        
       },
       chip: {
         margin: theme.spacing.unit / 5,
@@ -58,13 +56,15 @@ const styles = theme => ({
       display: 'flex',
       flexWrap: 'wrap',
       height: 'relative',
-      width: '400px',
-      paddingTop: '50px'
+      width: '360px',
+      paddingTop: '0px'
     },
     textField: {
-      width: '400px',
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
+      width: '360px',
+    },
+    divButton: {
+      margin: theme.spacing.unit,
+      textAlign: 'center'
     },
     dense: {
       marginTop: 16,
@@ -97,9 +97,7 @@ const MenuProps = {
     },
 };
 
-const guests = [
-    
-];
+
 
 function getStyles(guest, that) {
     const weight = that.props.theme.typography;
@@ -115,9 +113,9 @@ function getStyles(guest, that) {
 class AddEvent extends Component {
 
     state = {
-        title:'',
-        location:'',
-        description:'',
+        title:'Uno Game Night',
+        location:'The Armory',
+        description:'Play Uno with lots of friends!',
         date: '',
         guests: [],
       };
@@ -171,7 +169,7 @@ class AddEvent extends Component {
     }
 
     render() {
-        const { classes, children, className, } = this.props;
+        const { classes, children } = this.props;
         console.log('hello');
         
       
@@ -225,21 +223,7 @@ class AddEvent extends Component {
                         value={this.state.description}
                         onChange = { (event) => this.handleChange( event, 'description' ) }
                     />
-                    {/* <TextField 
-                    className={classes.textField} 
-                    label="Invite by Email"
-                    placeholder="example@gmail.com"
-                    margin="normal"
-                    variant="outlined"
-                    // value={this.state.description}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                            ),
-                        }}
-                    /> */}
+                    
                     <FormControl className={classes.formControl}>
                         <InputLabel htmlFor="select-multiple-names">Add Guests</InputLabel>
                         <Select
@@ -264,7 +248,7 @@ class AddEvent extends Component {
                         </Select>
                         </FormControl>
                     <br></br>
-                    <div>    
+                    <div className={classes.divButton}>    
                     <Button 
                         className={classNames(classes.root)} 
                         type="submit"
@@ -276,7 +260,6 @@ class AddEvent extends Component {
                     </div>
                 </div>
             </form>
-
             <BotNav />
             </div>
             

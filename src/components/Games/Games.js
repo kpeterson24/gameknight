@@ -15,11 +15,25 @@ import BotNav from '../Nav/BotNav';
 
 const styles = themes => ({
     card: {
-    maxWidth: 345,
+        justifyContent: 'center',
+        width: '360px',
+        paddingTop: '0px',
+        margin: '20px',
+        marginLeft: '550px'
+        
     },
     actions: {
         display: 'flex',
     },
+
+    centerCard: {
+        justify: 'center',
+        textAlign: 'center'
+    },
+    button: {
+        margin: themes.spacing.unit,
+        textAlign: 'center'
+      },
 });
 
 class Games extends Component {
@@ -70,57 +84,59 @@ class Games extends Component {
         if( this.state.editMode ) {
             const { classes, children, className} = this.props;
             return (
-             <form className = {classes.container} noValidate autoComplete = "off" onSubmit={this.handleEdit}>
-                <div>
-                    <TextField
-                        required
-                        label="Game Title"
-                        placeholder="Risk, Jumanji?"
-                        className={classes.textField}
-                        margin="normal"
-                        variant="outlined"
-                        value={this.state.title}
-                        onChange = { (event) => this.handleChange( event, 'title' ) }
-                    />
-                    <TextField
-                        required
-                        label="Genre"
-                        placeholder="Strategy, Board Game?"
-                        className={classes.textField}
-                        margin="normal"
-                        variant="outlined"
-                        value={this.state.genre}
-                        onChange = { (event) => this.handleChange( event, 'genre' ) }
-                    />
-                    <TextField
-                        required
-                        label="Description"
-                        placeholder="Briefly, Please"
-                        className={classes.textField}
-                        margin="normal"
-                        variant="outlined"
-                        value={this.state.description}
-                        onChange = { (event) => this.handleChange( event, 'description' ) }
-                    />
-                    <TextField
-                        required
-                        label="Number of Players"
-                        placeholder="Min - Max"
-                        className={classes.textField}
-                        margin="normal"
-                        variant="outlined"
-                        value={this.state.players}
-                        onChange = { (event) => this.handleChange( event, 'players' ) }
-                    />
-                    
-                    <Button 
-                        className={classNames(classes.root, className)} type="submit">
-                        {children || 'Save Changes'}
-                    <SaveIcon className={classNames(classes.rightIcon)} />
-                    </Button>
-                    
-                </div> 
-            </form>
+            
+                <form className = {classes.container} noValidate autoComplete = "off" onSubmit={this.handleEdit}>
+                    <div>
+                        <TextField
+                            required
+                            label="Game Title"
+                            placeholder="Risk, Jumanji?"
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                            value={this.state.title}
+                            onChange = { (event) => this.handleChange( event, 'title' ) }
+                        />
+                        <TextField
+                            required
+                            label="Genre"
+                            placeholder="Strategy, Board Game?"
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                            value={this.state.genre}
+                            onChange = { (event) => this.handleChange( event, 'genre' ) }
+                        />
+                        <TextField
+                            required
+                            label="Description"
+                            placeholder="Briefly, Please"
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                            value={this.state.description}
+                            onChange = { (event) => this.handleChange( event, 'description' ) }
+                        />
+                        <TextField
+                            required
+                            label="Number of Players"
+                            placeholder="Min - Max"
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                            value={this.state.players}
+                            onChange = { (event) => this.handleChange( event, 'players' ) }
+                        />
+                        
+                        <Button 
+                            className={classNames(classes.root, className)} type="submit">
+                            {children || 'Save Changes'}
+                        <SaveIcon className={classNames(classes.rightIcon)} />
+                        </Button>
+                        
+                    </div> 
+                </form>
+            
             
         )
         }else{
@@ -134,22 +150,26 @@ class Games extends Component {
 
         return (
             <div>
-                {JSON.stringify(this.props.games)}
+                {/* {JSON.stringify(this.props.games)} */}
                 {this.props.games.map( ( game, i ) => {
                     return(
-                        
+                        <>
                         <Card key={i} className = {classes.card}>
                             <CardHeader title = {game.title}/>
                             <CardContent>
-                                <Typography component = 'h2'>Game Description:</Typography>
+                                <Typography variant = 'h6' component = 'h2'>Game Description:</Typography>
                                 <Typography component = 'p'>
                                     {game.desc}
                                 </Typography>
-                                <Typography component = 'h2'>Number of Players:</Typography>
+                                <br>
+                                </br>
+                                <Typography variant = 'h6' component = 'h2'>Number of Players:</Typography>
                                 <Typography component = 'p'>
                                     {game.players}
                                 </Typography>
-                                <Typography component = 'h2'>Genre:</Typography>
+                                <br>
+                                </br>
+                                <Typography variant = 'h6' component = 'h2'>Genre:</Typography>
                                 <Typography component = 'p'>
                                     {game.genre}
                                 </Typography>
@@ -162,10 +182,12 @@ class Games extends Component {
                                 className={classNames(classes.root, className)} onClick={() => this.editGame(game.game_id)}>
                                 {children || 'Edit Game Details'}
                             </Button>
-                            <div className = {classes.card}>
-                            {this.editGameForm()}
-                            </div>
+                            
                         </Card>
+                        <div className = {classes.card}>
+                        {this.editGameForm()}
+                        </div>
+                        </>
                     )
                     
                 })}

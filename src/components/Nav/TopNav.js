@@ -14,6 +14,11 @@ import Popover from '@material-ui/core/Popover';
 
 const styles = {
     root: {
+        display: 'block',
+        marginTop: '0px',
+        marginRight: '0px',
+        marginBottom: '0px',
+        marginLeft: '0px',
         flexGrow: 1,
     },
     menuButton: {
@@ -21,15 +26,16 @@ const styles = {
         marginRight: 'flex',
     },
     grow: {
-        flexGrow: 1
+        flexGrow: 'auto'
     },
     container: {
-        width: '100%',
+        margin: '0px',
+        width: 'auto',
         position: "sticky"
         
     },
     pageTitle: {
-        position: 'auto',
+        
         flexGrow: 1
     }
 };
@@ -78,7 +84,7 @@ const popStyles = theme => ({
 
                             )}
                         <Typography variant="h6" className={classes.pageTitle}>
-                            Add Event
+                            GameKnight
                         </Typography>
                                 
                                 <IconButton  color="inherit" className={classes.menuButton} aria-label="Home" onClick={goHome}>

@@ -23,10 +23,14 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
     card: {
-        maxWidth: 345,
+        justifyContent: 'center',
+        width: '360px',
+        paddingTop: '0px',
+        margin: '20px',
+        marginLeft: '550px'
     },
     actions: {
-        display: 'flex',
+        display: 360,
     },
     expand: {
         transform: 'rotate(0deg)',
@@ -71,9 +75,7 @@ class Schedule extends Component {
         return (
             
             <div>
-                {/* {JSON.stringify(this.props)} */}
-                
-                
+               
                 {this.props.event.map( ( event, i ) => {
                     
                     return(
@@ -107,10 +109,10 @@ class Schedule extends Component {
                         <Typography component = 'p'>
                             Games: {event.game_id}
                         </Typography>
-                        <div>
+                        {/* <div>
                             <Typography  component = 'p'>Are you Coming?</Typography>
                             <Checkbox checked = {this.state.checkedA} onChange = {this.handleCheckChange('checkedA')} value = "checkedA" />
-                        </div>
+                        </div> */}
                     </CardContent>
                     <CardActions className = {classes.actions} disableActionSpacing>
                         <Typography component = 'h4'>See Full Event Details</Typography>
@@ -128,7 +130,7 @@ class Schedule extends Component {
                     <Collapse in = {this.state.expanded} timeout = "auto" unmountOnExit>
                         <CardContent>
                             <Typography paragraph>Guest List:</Typography>
-                            <Typography component = 'ul'>{this.props.event.guestlist}</Typography>
+                            <Typography component = 'ul'>{event.username}</Typography>
 
                         </CardContent>
                     </Collapse>

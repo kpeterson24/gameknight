@@ -33,12 +33,25 @@ CREATE TABLE "event_detail" (
 	"status" BOOLEAN
 );
 
-INSERT INTO "user" ("username", "password", "email", "profile_image")
-VALUES ('Korey', 'korey', 'korey.t.peterson@gmail.com', 'tbd');
+INSERT INTO "event_detail" ("time", "host_id", "location", "desc")
+VALUES ('00:00:00', '1', 'Minneapolis', 'Description');
 
 INSERT INTO "games" ("title", "genre", "players", "desc")
-VALUES ('Risk', 'Strategy', '6 to 12', 'Risk is a strategy board game of diplomacy, conflict and conquest for two to six players. Players may form and dissolve alliances during the course of the game.');
+VALUES ('Risk', 'Strategy', '6-12', 'Super dope strategy game where you hate your friends.'); 
 
-INSERT INTO "event_detail" ("date", "time", "host", "location", "guestlist", "games", "desc","status")
-VALUES ('1/24/2020', '11:00pm', 'Korey', '1234 12th Street, Minneapolis MN, 55403', '8', '4', 'GameKnight will be at my house!', true);
+INSERT INTO "user_games"("game_id", "user_id")
+VALUES('1', '2');
+
+SELECT * FROM "user"
+LEFT JOIN "user_games" ON "user_games"."user_id" = "user"."id"
+LEFT JOIN "games" ON "games"."game_id" = "user_games"."game_id"
+WHERE "user"."id" = 2;
+
+INSERT INTO "games" ("title", "genre", "players", "desc")
+    VALUES ('1', '2', '3', '4') 
+    RETURNING "games"."game_id"
+    INSERT INTO "user_games" ("game_id", "user_id")
+    VALUES ($1, $2);
+
+
 	

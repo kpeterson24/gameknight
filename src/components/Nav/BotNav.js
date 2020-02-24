@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
+
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -11,16 +12,25 @@ import EventIcon from '@material-ui/icons/Event';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
 
-const styles = {
+const styles = theme => ({
     root: {
-        width:'flex',
+        width: 'flex',
+       
+        padding: '10px'
     },
-};
+    navBody: {
+        justify: 'center',
+        display: 'center',
+        margin: '0px',
+        padding: '0px'
+      }
+});
 
 class BotNav extends Component {
 
     state = {
         value: 0,
+        
     };
 
     handleChange = (event, propName) => {
@@ -33,28 +43,21 @@ class BotNav extends Component {
         const { value } = this.state;
 
         return(
+            <div className = {classes.navBody}>
             <BottomNavigation
+                
                 value={ value }
                 onChange={ this.handleChange }
                 showLabels
                 className={ classes.root }
             >
-                <Link to="/addgame">
-                    <BottomNavigationAction label="Add Game" icon={<PlaylistAddIcon/>} />
-                </Link>
-                <Link to="/game">
-                    <BottomNavigationAction label="My Games" icon={<CasinoIcon/>} />
-                </Link>
-                <Link to="/api/user">
-                    <BottomNavigationAction label="Profile" icon={<AccountCircleIcon/>} />
-                </Link>   
-                <Link to="schedule">
-                    <BottomNavigationAction label="My Events" icon={<EventIcon/>} />
-                </Link>
-                <Link to="addevent">
-                    <BottomNavigationAction label="Add Event" icon={<LibraryAddIcon/>} />
-                </Link>
+                <BottomNavigationAction component={Link} to="/addgame" label="Add Game" icon={<PlaylistAddIcon color="disabled"/>}  />
+                <BottomNavigationAction component={Link} to="/game" label="My Games" icon={<CasinoIcon color="disabled"/>} />
+                <BottomNavigationAction component={Link} to="/home" label="Profile" icon={<AccountCircleIcon color="disabled"/>} />
+                <BottomNavigationAction component={Link} to="/schedule" label="My Events" icon={<EventIcon color="disabled"/>} />
+                <BottomNavigationAction component={Link} to="/addevent" label="Add Event" icon={<LibraryAddIcon color="disabled"/>} />  
             </BottomNavigation>
+            </div>
         )
     }
 }

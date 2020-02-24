@@ -14,6 +14,11 @@ import Popover from '@material-ui/core/Popover';
 
 const styles = {
     root: {
+        display: 'block',
+        marginTop: '0px',
+        marginRight: '0px',
+        marginBottom: '0px',
+        marginLeft: '0px',
         flexGrow: 1,
     },
     menuButton: {
@@ -21,8 +26,18 @@ const styles = {
         marginRight: 'flex',
     },
     grow: {
-        flexGrow: 1
+        flexGrow: 'auto'
     },
+    container: {
+        margin: '0px',
+        width: 'auto',
+        position: "sticky"
+        
+    },
+    pageTitle: {
+        
+        flexGrow: 1
+    }
 };
 
 const popStyles = theme => ({
@@ -53,7 +68,7 @@ const popStyles = theme => ({
     
        return(
             <div className = {classes.root}>
-                <AppBar >
+                <AppBar className = {classes.container}>
                     <Toolbar>
                             {/* Show the link to the info page and the logout button if the user is logged in */}
                             {props.user.id && (
@@ -68,8 +83,8 @@ const popStyles = theme => ({
                           </IconButton>
 
                             )}
-                        <Typography variant="h6"  className={classes.grow}>
-                            Add Event
+                        <Typography variant="h6" className={classes.pageTitle}>
+                            GameKnight
                         </Typography>
                                 
                                 <IconButton  color="inherit" className={classes.menuButton} aria-label="Home" onClick={goHome}>

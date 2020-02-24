@@ -8,35 +8,69 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 // import Grid from '@material-ui/core/Grid';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import { InputAdornment } from '@material-ui/core';
+import { InputLabel, Select } from '@material-ui/core';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Chip from '@material-ui/core/Chip';
+import Input from '@material-ui/core/Input';
+
 
 // Material Ui styles brought in for the text fields.
 const styles = theme => ({
     root: {
-        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-        borderRadius: 3,
-        border: 0,
-        color: 'white',
-        height: 48,
-        padding: '0 30px',
-        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+      background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+      borderRadius: 3,
+      border: 0,
+      color: 'white',
+      height: 50,
+      padding: '0 50px',
+      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+      },
+      
+      multipleRoot: {
+        margin: theme.spacing.unit,
+        width: '360',  
+        display: 'flex',
+        flexWrap: 'wrap',
+      },
+      formControl: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        height: 'relative',
+        width: '360px',
       },
 
-    container: {
+      chips: {
+        display: '100%',
+        flexWrap: 'wrap',
+        
+      },
+      chip: {
+        margin: theme.spacing.unit / 5,
+      },
+      noLabel: {
+        marginTop: theme.spacing.unit,
+      },
+
+     container: {
       display: 'flex',
       flexWrap: 'wrap',
-      height: '475px',
+      height: 'relative',
+      width: '360px',
+      paddingTop: '0px'
     },
     textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
+      width: '360px',
+    },
+    divButton: {
+      margin: theme.spacing.unit,
+      textAlign: 'center'
     },
     dense: {
       marginTop: 16,
     },
     menu: {
-      width: 200,
+      width: 300,
     },
     button: {
         margin: theme.spacing.unit,
@@ -52,43 +86,101 @@ const styles = theme => ({
       }
   });
 
+const ITEM_HEIGHT = 50;
+const ITEM_PADDING_TOP = 10;
+const MenuProps = {
+    PaperProps: {
+        style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+        },
+    },
+};
+
+
+
+function getStyles(guest, that) {
+    const weight = that.props.theme.typography;
+    return {
+        
+        fontWeight:
+            that.state.guests.indexOf(guest) === -1 ? weight.fontWeightRegular : weight.fontWeightMedium,
+    };
+}
+
+
   
 class AddEvent extends Component {
 
     state = {
-        title:'',
-        location:'',
-        description:'',
-        date: ''
+        title:'Uno Game Night',
+        location:'The Armory',
+        description:'Play Uno with lots of friends!',
+        date: '',
+        guests: [],
       };
+
+      addNewEvent = (event, id) => {
+        this.props.dispatch({ type: 'ADD_EVENT', payload: this.state });    
+        this.setState({
+            
+        });
+    }
     
       handleChange = (event, propName) => {
         this.setState({
           [propName]: event.target.value,
         });
+        console.log(event.target.value);
+        
       };
 
+      handleGuestChange = event => {
+          this.setState({ guests: event.target.value });
+      };
+
+      handleChangeMultiple = event => {
+        const { options } = event.target;
+        const value = [];
+        for (let i = 0, l = options.length; i < l; i += 1) {
+          if (options[i].selected) {
+            value.push(options[i].value);
+          }
+        }
+        this.setState({
+          guests: value,
+        });
+      };
+
+      componentDidMount() {
+          this.props.dispatch({type: 'GET_USERS'});
+      };
     
     
-      addNewGame = (event, id) => {
+      addNewEvent = (event, id) => {
         this.props.dispatch({ type: 'ADD_EVENT', payload: this.state });    
         this.setState({
             title:'',
             location:'',
             description:'',
-            date: ''
+            date: '',
+            guests:[],
         });
     }
 
     render() {
-        const { classes, children, className, } = this.props;
+        const { classes, children } = this.props;
+        console.log('hello');
+        
       
 
         return (
             <div>
-            <form className = {classes.container} noValidate autoComplete = "off" onSubmit={this.addNewGame}>
+                {/* {JSON.stringify(this.props.users)} */}
+            <form className = {classes.container} noValidate autoComplete = "off" onSubmit={this.addNewEvent}>
                 <div>
-                {/* {JSON.stringify(this.state.props)} */}
+                
+                
                     <TextField
                         required
                         label="Event Title"
@@ -131,30 +223,43 @@ class AddEvent extends Component {
                         value={this.state.description}
                         onChange = { (event) => this.handleChange( event, 'description' ) }
                     />
-                    <TextField 
-                    className={classes.textField} 
-                    label="Invite by Email"
-                    placeholder="example@gmail.com"
-                    margin="normal"
-                    variant="outlined"
-                    // value={this.state.description}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                            ),
-                        }}
-                    />
                     
+                    <FormControl className={classes.formControl}>
+                        <InputLabel htmlFor="select-multiple-names">Add Guests</InputLabel>
+                        <Select
+                            multiple
+                            value={this.state.guests}
+                            onChange={this.handleGuestChange}
+                            input={<Input id="select-multiple-names" />}
+                            renderValue={selected => (
+                            <div className={classes.chips}>
+                                {selected.map(value => (
+                                <Chip key={value} label={value} className={classes.chip} />
+                                ))}
+                            </div>
+                            )}
+                            MenuProps={MenuProps}
+                        >
+                            {this.props.users.map(guest => (
+                            <MenuItem key={guest.id} value={guest.id} style={getStyles(guest, this)}>
+                                {guest.username}
+                            </MenuItem>
+                            ))}
+                        </Select>
+                        </FormControl>
+                    <br></br>
+                    <div className={classes.divButton}>    
                     <Button 
-                        className={classNames(classes.root, className)} type="submit" >
+                        className={classNames(classes.root)} 
+                        type="submit"
+                        padding="50px"
+                        >
                         {children || 'Add to Schedule'}
                     <SaveIcon className={classNames(classes.rightIcon)} />
                     </Button>
+                    </div>
                 </div>
             </form>
-
             <BotNav />
             </div>
             
@@ -167,5 +272,8 @@ AddEvent.propTypes = {
     classes: PropTypes.object.isRequired,
     className: PropTypes.string,
 };
+const putReduxStateOnProps = ( reduxStore ) => ({
+    users: reduxStore.allUsers
+})
 
-  export default connect()(withStyles(styles)(AddEvent));
+  export default connect(putReduxStateOnProps)(withStyles(styles, { withTheme: true} )(AddEvent));

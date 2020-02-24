@@ -15,13 +15,15 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // Gets user info ro display oin user page
 router.get('/:id', rejectUnauthenticated, (req, res) => {
   let queryText = `SELECT * FROM "user" WHERE id=$1;`;
-  pool.query(queryText).then(result => {
+  pool.query(queryText,[req.params.id]).then(result => {
       res.send(result.rows);
   }).catch(error => {
       console.log('error getting unique user information', error);
       res.sendStatus(500);
   });   
 });
+
+
 
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen

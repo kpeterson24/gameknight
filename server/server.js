@@ -14,6 +14,7 @@ const eventRouter = require('./routes/event.router');
 const gameRouter = require('./routes/games.router');
 const addGameRouter = require('./routes/addGame.router');
 const addEventRouter = require('./routes/addEvent.router');
+const allUsersRouter = require('./routes/allUsers.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -31,7 +32,8 @@ app.use('/api/user', userRouter);
 app.use('/schedule', eventRouter);
 app.use('/game', gameRouter);
 app.use('/addgame', addGameRouter);
-app.use('/addevent', addEventRouter)
+app.use('/addevent', addEventRouter);
+app.use('/all', allUsersRouter);
 
 // Serve static files
 app.use(express.static('build'));

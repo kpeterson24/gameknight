@@ -31,6 +31,7 @@ class LoginPage extends Component {
 
   render() {
     return (
+      <center>
       <div>
         {this.props.errors.loginMessage && (
           <h2
@@ -86,6 +87,7 @@ class LoginPage extends Component {
           <button type="button" className="link-button" onClick={() => {this.props.dispatch({type: 'SET_TO_REGISTER_MODE'})}}>Forgot Password?</button>
         </center>
       </div>
+      </center>
     );
   }
 }

@@ -1,27 +1,39 @@
 const express = require('express');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
 const router = express.Router();
 
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, async (req, res) => {
     console.log('POST Add New Event', req.body);
-    const event = req.body;
-    let queryString = `INSERT INTO "event_detail" ("title", "genre", "players", "desc")
-    VALUES ($1, $2, $3, $4) 
-    RETURNING "games"."game_id";`
-    let queryString2 = `INSERT INTO "user_games"("game_id", "user_id")
-    VALUES($1, $2);`
-    pool.query( queryString, [game.title, game.genre, game.players, game.description] ).then((result) => {
-        pool.query( queryString2, [result.rows[0].game_id, req.user.id] ).then((result) =>{
-            console.log('game added');
-            res.sendStatus(201)
-        })  
-    }).catch( (error) =>{
-        console.log('error posting new game', error);
-        res.sendStatus(500);
-    })
+    const client = await pool.connect()
+
+    try{
+        const event = req.body;
+        const host= req.user;  
+        await client.query('BEGIN')
+        const queryString = `INSERT INTO "event_detail" ("title", "date", "location", "desc", "host_id")
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING "event_id";`
+        const result = await client.query(queryString, [event.title, event.date, event.location, event.description, host.id]);
+        const queryString2 = `INSERT INTO "event_guests"("guest_id", "event_id" )
+        VALUES($1, $2);`;
+            for (let i=0; i < event.guests.length; i++) {
+                console.log('this is guests', event.guests[i]);
+                await client.query(queryString2, [event.guests[i], result.rows[0].event_id])
+            }
+            console.log('event added', result.rows[0].event_id)
+        await client.query('COMMIT')
+    } catch (error) {
+        await client.query('ROLLBACK')
+        console.log(error);
+        
+    } finally {
+        client.release()
+    }
 });
+
 
 module.exports = router;

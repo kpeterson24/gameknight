@@ -6,36 +6,41 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
+import BotNav from '../Nav/BotNav';
+
 
 // Material Ui styles brought in for the text fields.
 const styles = theme => ({
-    root: {
-        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-        borderRadius: 3,
-        border: 0,
-        color: 'white',
-        height: 50,
-        padding: '0 30px',
-        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+  root: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    borderRadius: 3,
+    border: 0,
+    color: 'white',
+    height: 50,
+    padding: '0 50px',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
       },
 
     container: {
       display: 'flex',
       flexWrap: 'wrap',
-      height: '475px',
+      height: 'relative',
+      width: '360px',
+      padding: '0px'
     },
     textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
+      width: '360px',
+     
     },
     dense: {
-      marginTop: 16,
+      marginTop: 10,
     },
     menu: {
-      width: 200,
+      width: 300,
     },
     button: {
         margin: theme.spacing.unit,
+        textAlign: 'center'
       },
       rightIcon: {
         marginLeft: theme.spacing.unit,
@@ -43,16 +48,21 @@ const styles = theme => ({
       iconSmall: {
         fontSize: 50,
       },
+      margin: {
+        margin: theme.spacing.unit,
+    },
+
+
   });
 
   
 class AddGame extends Component {
 
     state = {
-        title:'',
-        genre:'',
-        description:'',
-        players:''
+        title:'Risk',
+        genre:'Strategy ',
+        description:'Risk is a strategy board game of diplomacy, conflict and conquest for two to six players. The standard version is played on a board depicting a political map of Earth, divided into forty-two territories, which are grouped into six continents.',
+        players:'2-6'
       };
     
       handleChange = (event, propName) => {
@@ -72,13 +82,13 @@ class AddGame extends Component {
     }
 
     render() {
-        const { classes, children, className,} = this.props;
+        const { classes, children,} = this.props;
       
 
         return (
-            
+         <div>
             <form className = {classes.container} noValidate autoComplete = "off" onSubmit={this.addNewGame}>
-                <div>
+                <div >
                 {/* {JSON.stringify(this.state.props)} */}
                     <TextField
                         required
@@ -120,17 +130,20 @@ class AddGame extends Component {
                         value={this.state.players}
                         onChange = { (event) => this.handleChange( event, 'players' ) }
                     />
-                    
+                    <div className = {classes.button}>
                     <Button 
-                        className={classNames(classes.root, className)} type="submit" >
-                        {children || 'Add to List'}
-                    <SaveIcon className={classNames(classes.rightIcon)} />
+                          className={classNames(classes.root)} type="submit" >
+                          {children || 'Add to List'}
+                      <SaveIcon className={classNames(classes.rightIcon)} />
                     </Button>
+                    </div>
                 </div>
-                
-            </form>
-
+                 
+            </form> 
+            <BotNav/>
+            </div>
         )
+        
     }
 }
 

@@ -9,7 +9,7 @@ import {
 import {connect} from 'react-redux';
 import TopNav from '../Nav/TopNav';
 import BotNav from'../Nav/BotNav';
-import Footer from '../Footer/Footer';
+// import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import UserPage from '../UserPage/UserPage';
 import Schedule from '../Schedule/Schedule';
@@ -72,7 +72,7 @@ class App extends Component {
             <Route render={() => <h1>404</h1>} />
             <BotNav />
           </Switch>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </Router>
   )}

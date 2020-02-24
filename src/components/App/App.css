@@ -4,17 +4,16 @@ body {
 }
 
 .alert {
-    background-color: #ff4545;
+    background-color: #ffffff;
     margin: 50px;
 }
 
 form {
-    background-color: #dbd5d5;
-    width: 30%;
-    height: 250px;
-    margin: 20px auto;
-    padding: 25px;
-    border-radius: 2px;
+    width: 100%;
+    height: relative;
+    margin: 3px auto;
+    padding: 35px;
+    border-radius: 10px;
 }
 
 input {
